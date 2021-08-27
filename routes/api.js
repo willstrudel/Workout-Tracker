@@ -1,8 +1,8 @@
 const router = require('express').Router();
-const Workout = require('../modals/workout');
+const db = require('../modals/workout');
 
 router.post('/api/workouts', (req, res) => {
-  Workout.create({})
+  db.Workout.create({})
     .then((dbWorkout) => {
       res.json(dbWorkout);
     })
@@ -12,7 +12,7 @@ router.post('/api/workouts', (req, res) => {
 });
 
 router.put('/api/workouts/:id', ({ body, params }, res) => {
-  Workout.findByIdAndUpdate(
+  db.Workout.findByIdAndUpdate(
     params.id,
     { $push: { exercises: body } },
  
@@ -27,7 +27,7 @@ router.put('/api/workouts/:id', ({ body, params }, res) => {
 });
 
 router.get('/api/workouts', (req, res) => {
-  Workout.aggregate([
+  db.Workout.aggregate([
     {
       $addFields: {
         totalDuration: {
@@ -45,7 +45,7 @@ router.get('/api/workouts', (req, res) => {
 });
 
 router.get('/api/workouts/range', (req, res) => {
-  Workout.aggregate([
+  db.Workout.aggregate([
     {
       $addFields: {
         totalDuration: {
@@ -66,7 +66,7 @@ router.get('/api/workouts/range', (req, res) => {
 });
 
 router.delete('/api/workouts', ({ body }, res) => {
-  Workout.findByIdAndDelete(body.id)
+  db.Workout.findByIdAndDelete(body.id)
     .then(() => {
       res.json(true);
     })
