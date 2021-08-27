@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const db = require('../modals/workout');
+const db = require('../modals/workout.js');
 
 mongoose.connect(
   process.env.MONGODB_URI || 'mongodb://localhost/Workout', 
